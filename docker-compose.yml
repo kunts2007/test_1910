@@ -1,0 +1,59 @@
+version: '3'
+services:
+
+    web:
+        build:
+            context: ./configs/nginx
+        container_name: ${PREFIX}-web
+        volumes:
+            - ./configs/nginx/conf:/etc/nginx/conf.d/
+            - ./configs/nginx/ssl/:/etc/nginx/ssl/
+            - ./logs:/var/log/nginx
+            - ./project:/app:cached
+        working_dir: /app
+        ports:
+            - 80:80
+#            - 443:443
+        restart: always
+        depends_on:
+            - php
+            
+    php:
+        build: 
+            context: ./configs/php
+        container_name: ${PREFIX}-php
+        restart: always
+        volumes:
+            - ./project:/app:cached
+            - ./logs:/var/log:cached
+            #- ./configs/conf/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+        working_dir: /app
+        
+#    db:
+#        build:
+#            context: ./configs/mysql
+#        container_name: db-${PREFIX}
+#        restart: always
+#        environment:
+#            MYSQL_ROOT_PASSWORD: root
+#            MYSQL_DATABASE: online
+#            MYSQL_USER: online
+#            MYSQL_PASSWORD: 1111
+        #expose:
+        #    - "3306"
+#        ports:
+#            - ${IP}:3306:3306
+#        volumes:
+#            - ./../:/home/:cached
+#            - mydata:/var/lib/mysql:cached
+            
+
+#    adminer:
+#        image: adminer
+#        restart: always
+ #       ports:
+#            - 8080:8080
+            
+            
+volumes:
+    mydata:
