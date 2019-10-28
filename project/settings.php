@@ -12,7 +12,7 @@ return [
 
             // path where the compiled metadata info will be cached
             // make sure the path exists and it is writable
-            'cache_dir' => APP_ROOT . '/var/doctrine',
+            'cache_dir' => '/var/tmp',
 
             // you should add any other path containing annotated entity classes
             'metadata_dirs' => [APP_ROOT . '/src/Entities'],

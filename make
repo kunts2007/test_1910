@@ -14,7 +14,7 @@ then
 			;;
 		up)
 			docker-compose down --remove-orphans;
-			docker stop 12345 $(docker ps -q);
+			#docker stop 12345 $(docker ps -q);
 			docker-compose up -d --build;
 			docker-compose exec --user $uid:$gid php composer install
 			;;
